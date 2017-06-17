@@ -50,6 +50,7 @@
               <goal>js</goal>
             </goals>
             <configuration>
+              <languageVersion>1.1</languageVersion>
               <sourceMap>true</sourceMap> <!-- source map is useful for debugging in tools that support source maps -->
               <outputFile>${project.build.outputDirectory}/${project.artifactId}/${project.artifactId}.js</outputFile>
             </configuration>

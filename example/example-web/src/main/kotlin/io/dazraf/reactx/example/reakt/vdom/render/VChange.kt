@@ -1,5 +1,6 @@
-package io.dazraf.reactx.example.reakt.vdom
+package io.dazraf.reactx.example.reakt.vdom.render
 
+import io.dazraf.reactx.example.reakt.vdom.elements.VElement
 import org.w3c.dom.Element
 
 abstract class VChange {
@@ -38,7 +39,7 @@ class Remove(val element: Element) : VChange() {
 
 class Replace(val element: Element, val vElement: VElement) : VChange() {
   override fun apply() {
-    element.parentElement?.replaceChild(element, vElement.render())
+    element.parentElement?.replaceChild(vElement.render(), element)
   }
 }
 
