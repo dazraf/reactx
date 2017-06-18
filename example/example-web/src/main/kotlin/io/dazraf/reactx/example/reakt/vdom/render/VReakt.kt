@@ -1,6 +1,6 @@
 package io.dazraf.reactx.example.reakt.vdom.render
 
-import io.dazraf.reactx.example.reakt.vdom.elements.VElement
+import io.dazraf.reactx.example.reakt.vdom.node.VElement
 import io.dazraf.reactx.example.reakt.vdom.log
 import org.w3c.dom.Element
 

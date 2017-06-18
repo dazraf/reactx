@@ -1,8 +1,8 @@
 package io.dazraf.reactx.example.reakt.vdom.render
 
-import io.dazraf.reactx.example.reakt.vdom.elements.VElement
-import io.dazraf.reactx.example.reakt.vdom.elements.VNode
-import io.dazraf.reactx.example.reakt.vdom.elements.VText
+import io.dazraf.reactx.example.reakt.vdom.node.VElement
+import io.dazraf.reactx.example.reakt.vdom.node.VNode
+import io.dazraf.reactx.example.reakt.vdom.node.VText
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import org.w3c.dom.Text
