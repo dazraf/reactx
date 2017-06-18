@@ -1,47 +1,78 @@
 package io.dazraf.reactx.example.reakt.vdom.render
 
 import io.dazraf.reactx.example.reakt.vdom.elements.VElement
+import io.dazraf.reactx.example.reakt.vdom.elements.VNode
+import io.dazraf.reactx.example.reakt.vdom.elements.VText
+import io.dazraf.reactx.example.reakt.vdom.log
 import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.Text
 import org.w3c.dom.get
 
-fun diffContainer(container: Element, vContainer: VElement) : List<VChange> {
+fun diffContainer(container: Node, vContainer: VElement<*>, patches : MutableList<VPatch>) {
   // collect keyed vElements
-  val changes = mutableListOf<VChange>()
-
   var index = 0
   var vIndex = 0
-  while (index < container.children.length || vIndex < vContainer.children.size) {
-    val element = if (index < container.children.length) container.children[index] else null
-    val vElement = if (vIndex < vContainer.children.size) vContainer.children[vIndex] else null
-    val delta = diffElement(element, vElement, container)
-    changes.addAll(delta)
+  while (index < container.childNodes.length || vIndex < vContainer.children.size) {
+    val node = if (index < container.childNodes.length) container.childNodes[index] else null
+    val vNode = if (vIndex < vContainer.children.size) vContainer.children[vIndex] else null
+    diffNode(node, vNode, container, patches)
     ++index
     ++vIndex
   }
-  return changes
 }
 
-fun List<VElement>.byKey() : Map<String, VElement> = this.filter { it.key.isNotEmpty() }.associateBy { it.key }
+@Suppress("UNCHECKED_CAST")
+fun diffNode(node: Node?, vNode: VNode<*>?, nodeParent: Node, patches: MutableList<VPatch>) {
+  log.debug("diffNode", node, vNode)
 
-
-fun diffElement(domElement: Element?, vElement: VElement?, domParent: Element): List<VChange> {
-  val changes = mutableListOf<VChange>()
-  if (vElement == null) {
-    if (domElement != null) {
-      changes += Remove(domElement)
+  // remove the node if we don't have vNode
+  if (vNode == null) {
+    if (node != null) {
+      log.debug("patch: remove", node)
+      patches += RemovePatch(node)
     }
-    return changes
+    return
   }
-  if (domElement == null) {
-    changes += InsertBeforeEnd(domParent, vElement)
-  } else if (!domElement.tagName.equals(vElement.tag, true)) {
-    changes += Replace(domElement, vElement)
+
+  if (node == null) {
+    log.debug("patch: append", nodeParent, vNode)
+    patches += AppendPatch(nodeParent, vNode)
+  } else {
+    if (node.nodeType != vNode.nodeType){
+      log.debug("patch: replace", node, vNode)
+      patches += ReplacePatch(node, vNode)
+    } else if (vNode is VElement){ // same nodeType
+      val element = node as Element
+      diffElement(element, vNode, patches)
+    } else if (vNode is VText) {
+      val text = node as Text
+      diffText(text, vNode, patches)
+    } else {
+      throw RuntimeException("Unknown VNode type ${vNode::class.js}")
+    }
+  }
+}
+
+@Suppress("UNCHECKED_CAST")
+fun diffElement(element: Element, vElement: VElement<*>, patches: MutableList<VPatch>) {
+  log.debug("diffElement", element, vElement)
+  if (!element.tagName.equals(vElement.tag, true)) {
+    log.debug("patch: replace", element, vElement)
+    patches += ReplacePatch(element, vElement)
   } else {
     if (vElement.shouldNodeUpdate()) {
-      changes += PushProps(domElement, vElement)
+      log.debug("patch: props", element, vElement)
+      patches += PropsPatch(element, vElement as VElement<Element>)
     }
-    changes.addAll(diffContainer(domElement, vElement))
+    diffContainer(element, vElement, patches)
   }
+}
 
-  return changes
+fun diffText(text: Text, vText: VText, patches: MutableList<VPatch>) {
+  log.debug("diffing", text, vText)
+  if (text.textContent != vText.text) {
+    log.debug("patch: text", text, vText)
+    patches += TextPatch(text, vText)
+  }
 }

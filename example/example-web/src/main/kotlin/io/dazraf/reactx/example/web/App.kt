@@ -1,8 +1,11 @@
 package io.dazraf.reactx.example.web
 
 import io.dazraf.reactx.example.reakt.vdom.elements.*
+import io.dazraf.reactx.example.reakt.vdom.log
 import io.dazraf.reactx.example.reakt.vdom.render.Reakt
 import org.w3c.dom.Element
+import org.w3c.dom.HTMLButtonElement
+import org.w3c.dom.HTMLDivElement
 import kotlin.browser.document
 
 /**
@@ -19,33 +22,53 @@ class App {
   private var last = 1
 
   fun run() {
+    log.debug = true
     val container = document.getElementById("app")
     if (container == null) {
-      console.log("can't find container 'app'")
+      log.error("can't find container 'app'")
     } else {
+//      render()
       render(container)
     }
   }
 
-  private fun createVDom(container: Element): VElement {
+  private fun render() {
+    val container = document.getElementById("app")!!
+    val b1 = document.createElement("button") as HTMLButtonElement
+    b1.appendChild(document.createTextNode("Remove"))
+    b1.onclick = {
+      b1.parentNode?.removeChild(b1)
+    }
+    with(container) {
+      appendChild(b1)
+    }
+  }
+
+  private fun render(container: Element) {
+    val root = createVDom(container)
+    Reakt.render(root, container)
+  }
+
+  private fun createVDom(container: Element): VElement<HTMLDivElement> {
     val root = root {
       button {
         elementClass = "btn btn-primary"
         onClick = {
           items += ++last
+          log.debug("size: ${items.size}")
           render(container)
         }
-        + "Push"
+        +"Push"
       }
       button {
         elementClass = "btn btn-success"
         onClick = {
           items.removeAt(0)
-          console.log("remaining: ${items.size}")
+          log.debug("size: ${items.size}")
           render(container)
         }
         disabled = items.size == 0
-        + "Pop"
+        +"Pop"
       }
       ul {
         elementClass = "list-group"
@@ -53,21 +76,14 @@ class App {
           li {
             key = "$item"
             elementClass = "list-group-item"
-            +"Item $item"
+            img {
+              src = "https://randomuser.me/api/portraits/men/$item.jpg"
+            }
+            + " Item $item"
           }
         }
       }
     }
     return root
   }
-
-  private fun render(container: Element) {
-    val root = createVDom(container)
-    Reakt.render(root, container)
-  }
 }
-
-
-
-
-

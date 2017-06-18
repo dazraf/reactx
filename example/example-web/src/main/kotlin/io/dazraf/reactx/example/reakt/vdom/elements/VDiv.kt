@@ -1,11 +1,12 @@
 package io.dazraf.reactx.example.reakt.vdom.elements
 
-class VDiv : VElement(tag = "div")
+import org.w3c.dom.HTMLDivElement
 
-fun VElement.div(fn: VDiv.() -> Unit) : VDiv {
+class VDiv : VElement<HTMLDivElement>(tag = "div")
+
+fun VElement<*>.div(fn: VDiv.() -> Unit) : VDiv {
   val div = VDiv()
   div.fn()
   this.children.add(div)
-  div.addListener(this::makeDirty)
   return div
 }
