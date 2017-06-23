@@ -1,5 +1,6 @@
 package io.dazraf.reactx.example.reakt.vdom.render
 
+import io.dazraf.reactx.example.reakt.vdom.log
 import io.dazraf.reactx.example.reakt.vdom.node.VElement
 import io.dazraf.reactx.example.reakt.vdom.node.VNode
 import io.dazraf.reactx.example.reakt.vdom.node.VText
@@ -19,13 +20,24 @@ class AppendPatch(val node: Node, val vNode: VNode<*>) : VPatch() {
 
 class RemovePatch(val node: Node) : VPatch() {
   override fun apply() {
-    node.parentNode?.removeChild(node)
+    node.parentNode?.removeChild(node) ?: log.error("could not find parent of", node)
   }
 }
 
 class ReplacePatch(val node: Node, val vNode: VNode<*>) : VPatch() {
   override fun apply() {
-    node.parentNode?.replaceChild(vNode.render(), node)
+    node.parentNode?.replaceChild(vNode.render(), node) ?: log.error("could not find parent of", node)
+  }
+}
+
+class MoveElementPatch(val newElement: Element, val oldElement: Element) : VPatch() {
+  override fun apply() {
+
+  }
+}
+class MoveNodePatch(val newNode: Node, val oldNode: Node) : VPatch() {
+  override fun apply() {
+    oldNode.parentNode?.replaceChild(newNode, oldNode) ?: log.error("could not find parent of", oldNode)
   }
 }
 

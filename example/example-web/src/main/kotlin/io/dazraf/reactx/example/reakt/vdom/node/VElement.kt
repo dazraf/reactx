@@ -10,6 +10,10 @@ open class VElement<H: Element>(open var id: String = "",
                                    open val tag: String = "",
                                    var elementClass: String = "") : VNode<H>()
 {
+  companion object {
+    val KEY_FIELD = "key"
+  }
+
   override val nodeType: Short
     get() = 1 // "Element"
 
@@ -53,8 +57,11 @@ open class VElement<H: Element>(open var id: String = "",
       element.id = id
     }
     if (key != "") {
-      element.setAttribute("key", key)
+      element.setAttribute(KEY_FIELD, key)
     }
+  }
+  fun hasKey() : Boolean {
+    return key != ""
   }
 }
 

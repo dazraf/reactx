@@ -4,8 +4,16 @@ package io.dazraf.reactx.example.reakt.vdom.node
 import org.w3c.dom.HTMLLIElement
 import org.w3c.dom.HTMLUListElement
 
-class VUnorderedList : VElement<HTMLUListElement>(tag = "ul")
-class VListItem : VElement<HTMLLIElement>(tag = "li")
+class VUnorderedList : VElement<HTMLUListElement>(tag = "ul") {
+  override fun shouldNodeUpdate(node: HTMLUListElement): Boolean {
+    return false
+  }
+}
+class VListItem : VElement<HTMLLIElement>(tag = "li") {
+  override fun shouldNodeUpdate(node: HTMLLIElement): Boolean {
+    return false
+  }
+}
 
 fun VElement<*>.ul(fn: VUnorderedList.() -> Unit) : VUnorderedList {
   val ul = VUnorderedList()

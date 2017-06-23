@@ -25,6 +25,7 @@
     <module>reactx-core</module>
     <module>example/example-web</module>
     <module>example/example-server</module>
+      <module>reactx-web</module>
   </modules>
   <packaging>pom</packaging>
 

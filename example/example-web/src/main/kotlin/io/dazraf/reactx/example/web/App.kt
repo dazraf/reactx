@@ -1,12 +1,15 @@
 package io.dazraf.reactx.example.web
 
+import io.dazraf.reactx.Invoker
 import io.dazraf.reactx.example.reakt.vdom.node.*
 import io.dazraf.reactx.example.reakt.vdom.log
 import io.dazraf.reactx.example.reakt.vdom.render.Reakt
+import io.dazraf.reactx.parse
 import org.w3c.dom.Element
-import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
 import kotlin.browser.document
+
+data class Name(val first: String, val last: String)
 
 /**
  * Example main function. Started at script body.
@@ -14,6 +17,7 @@ import kotlin.browser.document
  * Open example index.html in browser once you compile it.
  */
 fun main(args: Array<String>) {
+  Invoker().get("/api/test").parse<Name>().then({ console.log("result:", it)}, { console.log("failed: ${it.message}")})
   App().run()
 }
 
@@ -27,21 +31,30 @@ class App {
     if (container == null) {
       log.error("can't find container 'app'")
     } else {
-//      render()
-      render(container)
+      render()
+//      render(container)
     }
   }
 
   private fun render() {
     val container = document.getElementById("app")!!
-    val b1 = document.createElement("button") as HTMLButtonElement
-    b1.appendChild(document.createTextNode("Remove"))
-    b1.onclick = {
-      b1.parentNode?.removeChild(b1)
+    val root = root {
+      ul {
+        id = "list"
+        li {
+          id = "one"
+          + "one"
+        }
+        li {
+          id = "two"
+          + "two"
+        }
+      }
     }
-    with(container) {
-      appendChild(b1)
-    }
+    container.appendChild(root.render())
+    val ul = document.getElementById("list")!!
+    val one = document.getElementById("one")!!
+    ul.appendChild(one)
   }
 
   private fun render(container: Element) {

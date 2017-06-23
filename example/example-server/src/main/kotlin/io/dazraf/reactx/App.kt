@@ -3,12 +3,16 @@ package io.dazraf.reactx
 import io.netty.util.internal.logging.InternalLoggerFactory
 import io.netty.util.internal.logging.Slf4JLoggerFactory
 import io.vertx.core.Future
+import io.vertx.core.json.Json
 import io.vertx.rxjava.core.AbstractVerticle
 import io.vertx.rxjava.core.Vertx
 import io.vertx.rxjava.ext.web.Router
 import io.vertx.rxjava.ext.web.handler.StaticHandler
+import org.litote.kmongo.async.json
 import org.slf4j.LoggerFactory
 import kotlin.reflect.jvm.jvmName
+
+data class Name(val first: String, val last: String)
 
 class App : AbstractVerticle() {
   companion object {
@@ -34,6 +38,7 @@ class App : AbstractVerticle() {
         .setCacheEntryTimeout(1)
         .setMaxCacheSize(1)
 
+    router.get("/api/test").handler { it.response().end(Json.encode(Name("Fred", "Flintstone"))) }
     router.get("/webjars/*").handler(webjarsStatic::handle)
     router.get().handler(appStatic::handle)
     router.exceptionHandler {

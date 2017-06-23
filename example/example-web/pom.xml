@@ -31,6 +31,11 @@
       <artifactId>bootstrap</artifactId>
       <version>3.3.7-1</version>
     </dependency>
+    <dependency>
+      <groupId>io.dazraf.reactx</groupId>
+      <artifactId>reactx-web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -69,7 +74,7 @@
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>kotlin-stdlib-js</includeArtifactIds>
+              <includeArtifactIds>kotlin-stdlib-js, reactx-web</includeArtifactIds>
               <outputDirectory>${build.outputDirectory}/lib</outputDirectory>
               <includes>**\/*.js</includes>
               <excludes>**\/*.meta.js</excludes> <!-- we don't need meta.js files in runtime -->
