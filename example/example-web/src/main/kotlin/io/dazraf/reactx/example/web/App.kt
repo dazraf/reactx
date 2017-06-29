@@ -54,7 +54,7 @@ class App {
     container.appendChild(root.render())
     val ul = document.getElementById("list")!!
     val one = document.getElementById("one")!!
-    ul.appendChild(one)
+
   }
 
   private fun render(container: Element) {
