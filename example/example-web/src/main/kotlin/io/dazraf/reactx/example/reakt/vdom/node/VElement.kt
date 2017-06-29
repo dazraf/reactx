@@ -39,7 +39,7 @@ open class VElement<H: Element>(open var id: String = "",
 
 
   operator fun String.unaryPlus() {
-    children += VText(this)
+    appendChild(VText(this))
   }
 
   @Suppress("UNCHECKED_CAST")

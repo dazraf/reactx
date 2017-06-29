@@ -24,6 +24,6 @@ class VButton : VElement<HTMLButtonElement>(tag = "button") {
 fun VElement<*>.button(fn: VButton.() -> Unit): VButton {
   val button = VButton()
   button.fn()
-  this.children.add(button)
+  appendChild(button)
   return button
 }

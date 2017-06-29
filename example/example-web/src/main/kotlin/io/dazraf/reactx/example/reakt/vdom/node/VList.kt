@@ -18,14 +18,14 @@ class VListItem : VElement<HTMLLIElement>(tag = "li") {
 
 fun VElement<*>.ul(fn: VUnorderedList.() -> Unit) : VUnorderedList {
   val ul = VUnorderedList()
-  children += ul
+  appendChild(ul)
   ul.fn()
   return ul
 }
 
 fun VUnorderedList.li(fn: VListItem.() -> Unit) : VListItem {
   val li = VListItem()
-  children += li
+  appendChild(li)
   li.fn()
   return li
 }

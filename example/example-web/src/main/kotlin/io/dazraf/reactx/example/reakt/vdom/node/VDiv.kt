@@ -7,6 +7,6 @@ class VDiv : VElement<HTMLDivElement>(tag = "div")
 fun VElement<*>.div(fn: VDiv.() -> Unit) : VDiv {
   val div = VDiv()
   div.fn()
-  this.children.add(div)
+  appendChild(div)
   return div
 }

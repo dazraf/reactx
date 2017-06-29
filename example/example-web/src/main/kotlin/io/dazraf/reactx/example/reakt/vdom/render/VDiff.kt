@@ -15,9 +15,9 @@ fun diffContainer(container: Node, vContainer: VElement<*>, patches: MutableList
   var index = 0
   var vIndex = 0
   val keyed = groupNodesByKey(container)
-  while (index < container.childNodes.length || vIndex < vContainer.children.size) {
+  while (index < container.childNodes.length || vIndex < vContainer.childNodes.size) {
     val node = if (index < container.childNodes.length) container.childNodes[index] else null
-    val vNode = if (vIndex < vContainer.children.size) vContainer.children[vIndex] else null
+    val vNode = if (vIndex < vContainer.childNodes.size) vContainer.childNodes[vIndex] else null
     diffNode(node, vNode, container, keyed, patches)
     ++index
     ++vIndex

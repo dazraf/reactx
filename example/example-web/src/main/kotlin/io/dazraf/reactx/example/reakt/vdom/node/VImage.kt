@@ -13,7 +13,7 @@ class VImage : VElement<HTMLImageElement>(tag = "img") {
 
 fun VElement<*>.img(fn: VImage.() -> Unit) : VImage {
   val img = VImage()
-  this.children += img
+  appendChild(img)
   img.fn()
   return img
 }
