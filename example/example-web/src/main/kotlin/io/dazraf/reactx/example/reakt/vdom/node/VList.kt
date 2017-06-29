@@ -9,6 +9,7 @@ class VUnorderedList : VElement<HTMLUListElement>(tag = "ul") {
     return false
   }
 }
+
 class VListItem : VElement<HTMLLIElement>(tag = "li") {
   override fun shouldNodeUpdate(node: HTMLLIElement): Boolean {
     return false
