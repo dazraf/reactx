@@ -10,8 +10,6 @@ import org.w3c.dom.Text
 import org.w3c.dom.get
 import kotlin.dom.isElement
 
-private val result  = 3
-
 fun diffContainer(container: Node, vContainer: VElement<*>, patches: MutableList<VPatch>) {
   // collect keyed vElements
   var index = 0
