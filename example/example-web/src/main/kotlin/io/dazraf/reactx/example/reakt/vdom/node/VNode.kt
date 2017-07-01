@@ -10,6 +10,9 @@ abstract class VNode<H : Node>(private val children: MutableList<VNode<*>> = mut
       field = value
     }
 
+  var firstChild: VNode<*>? = null
+    get() = children.firstOrNull()
+
   var nextSibling: VNode<*>? = null
     get() = field
     protected set(value) {

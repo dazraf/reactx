@@ -8,7 +8,6 @@ object Reakt {
   fun render(vElement: VElement<*>, container: Element) {
     log.debug("rendering", vElement)
     val patches = mutableListOf<VPatch>()
-    diffContainer(container, vElement, patches)
     log.debug("changes: ${patches.size}", patches)
     patches.forEach {
       it.apply()
