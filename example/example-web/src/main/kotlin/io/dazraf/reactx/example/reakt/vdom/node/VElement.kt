@@ -6,9 +6,9 @@ import kotlin.browser.document
 import kotlin.reflect.KProperty
 
 open class VElement<H: Element>(open var id: String = "",
-                                   open var key: String = "",
-                                   open val tag: String = "",
-                                   var elementClass: String = "") : VNode<H>()
+                                open var key: String = "",
+                                open val tagName: String = "",
+                                var elementClass: String = "") : VNode<H>()
 {
   companion object {
     val KEY_FIELD = "key"
@@ -19,7 +19,7 @@ open class VElement<H: Element>(open var id: String = "",
 
   @Suppress("UNCHECKED_CAST")
   override fun createNode(): H {
-    return document.createElement(tag) as H
+    return document.createElement(tagName) as H
   }
 
   private val state = mutableMapOf<String, Any>()

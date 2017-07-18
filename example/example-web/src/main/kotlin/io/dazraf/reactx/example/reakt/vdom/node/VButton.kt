@@ -2,7 +2,7 @@ package io.dazraf.reactx.example.reakt.vdom.node
 
 import org.w3c.dom.HTMLButtonElement
 
-class VButton : VElement<HTMLButtonElement>(tag = "button") {
+class VButton : VElement<HTMLButtonElement>(tagName = "BUTTON") {
   var onClick: VButton.(event: VMouseEvent<VButton>) -> Unit = {}
   var type = "button"
   var disabled = false

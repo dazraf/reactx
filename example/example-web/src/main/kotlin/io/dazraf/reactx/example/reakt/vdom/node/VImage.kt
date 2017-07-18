@@ -2,7 +2,7 @@ package io.dazraf.reactx.example.reakt.vdom.node
 
 import org.w3c.dom.HTMLImageElement
 
-class VImage : VElement<HTMLImageElement>(tag = "img") {
+class VImage : VElement<HTMLImageElement>(tagName = "IMG") {
   var src = ""
 
   override fun pushProps(element: HTMLImageElement) {

@@ -47,6 +47,7 @@ abstract class VNode<H : Node>(private val children: MutableList<VNode<*>> = mut
   fun appendChild(node: VNode<*>): VNode<H> {
     node.detach()
     node.previousSibling = children.lastOrNull()
+    children.lastOrNull()?.nextSibling = node
     node.parent = this
     children.add(node)
     return this

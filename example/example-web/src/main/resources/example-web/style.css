@@ -1,7 +1,48 @@
-body {
-  background-color: whitesmoke;
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 
-.form {
-  background-color: lightgreen;
+.mdl-card {
+  width: 512px;
+}
+
+.mdl-card > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/25/zm/p025zmzy.jpg') center / cover;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+}
+
+.drawer {
+  border: none;
+}
+
+.drawer-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  height: 151px;
+}
+
+
+.layout .navigation .mdl-navigation__link {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+.navigation .mdl-navigation__link .material-icons {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.87);
+  margin-right: 32px;
+  width: 24px
 }

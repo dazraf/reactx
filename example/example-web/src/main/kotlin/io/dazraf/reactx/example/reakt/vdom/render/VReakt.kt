@@ -1,16 +1,15 @@
 package io.dazraf.reactx.example.reakt.vdom.render
 
-import io.dazraf.reactx.example.reakt.vdom.node.VElement
-import io.dazraf.reactx.example.reakt.vdom.log
-import org.w3c.dom.Element
+import io.dazraf.reactx.log
 
 object Reakt {
-  fun render(vElement: VElement<*>, container: Element) {
-    log.debug("rendering", vElement)
-    val patches = mutableListOf<VPatch>()
-    log.debug("changes: ${patches.size}", patches)
+  fun render(patches: List<VPatch>) {
     patches.forEach {
-      it.apply()
+      try {
+        it.apply()
+      } catch (err: Throwable) {
+        log.error("failed to execute patch", it)
+      }
     }
   }
 }

@@ -4,13 +4,13 @@ package io.dazraf.reactx.example.reakt.vdom.node
 import org.w3c.dom.HTMLLIElement
 import org.w3c.dom.HTMLUListElement
 
-class VUnorderedList : VElement<HTMLUListElement>(tag = "ul") {
+class VUnorderedList : VElement<HTMLUListElement>(tagName = "UL") {
   override fun shouldNodeUpdate(node: HTMLUListElement): Boolean {
     return false
   }
 }
 
-class VListItem : VElement<HTMLLIElement>(tag = "li") {
+class VListItem : VElement<HTMLLIElement>(tagName = "LI") {
   override fun shouldNodeUpdate(node: HTMLLIElement): Boolean {
     return false
   }

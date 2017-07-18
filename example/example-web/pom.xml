@@ -22,16 +22,6 @@
       <version>${kotlin.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>3.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>3.3.7-1</version>
-    </dependency>
-    <dependency>
       <groupId>io.dazraf.reactx</groupId>
       <artifactId>reactx-web</artifactId>
       <version>${project.version}</version>
@@ -74,7 +64,7 @@
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>kotlin-stdlib-js, reactx-web</includeArtifactIds>
+              <includeArtifactIds>kotlin-stdlib-js,reactx-web</includeArtifactIds>
               <outputDirectory>${build.outputDirectory}/lib</outputDirectory>
               <includes>**\/*.js</includes>
               <excludes>**\/*.meta.js</excludes> <!-- we don't need meta.js files in runtime -->

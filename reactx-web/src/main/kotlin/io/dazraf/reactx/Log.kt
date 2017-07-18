@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package io.dazraf.reactx.example.reakt.vdom
+package io.dazraf.reactx
 
 object log {
   var debug = false
@@ -22,5 +22,9 @@ object log {
     if (debug) {
       console.log(arrayOf("DEBUG:", *items))
     }
+  }
+
+  inline fun table(value: List<Any>) {
+    js("console").table(value)
   }
 }

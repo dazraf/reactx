@@ -1,15 +1,9 @@
 package io.dazraf.reactx.example.web
 
-import io.dazraf.reactx.Invoker
-import io.dazraf.reactx.example.reakt.vdom.node.*
-import io.dazraf.reactx.example.reakt.vdom.log
-import io.dazraf.reactx.example.reakt.vdom.render.Reakt
-import io.dazraf.reactx.parse
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLDivElement
+import io.dazraf.reactx.example.mdl.components.*
+import io.dazraf.reactx.example.simple.text
+import io.dazraf.reactx.log
 import kotlin.browser.document
-
-data class Name(val first: String, val last: String)
 
 /**
  * Example main function. Started at script body.
@@ -17,86 +11,35 @@ data class Name(val first: String, val last: String)
  * Open example index.html in browser once you compile it.
  */
 fun main(args: Array<String>) {
-  Invoker().get("/api/test").parse<Name>().then({ console.log("result:", it)}, { console.log("failed: ${it.message}")})
+  log.debug = true
   App().run()
 }
 
 class App {
-  private val items = mutableListOf(1)
-  private var last = 1
-
   fun run() {
     log.debug = true
-    val container = document.getElementById("app")
-    if (container == null) {
-      log.error("can't find container 'app'")
-    } else {
-      render()
-//      render(container)
+    val root = document.getElementById("app")
+    if (root == null) {
+      log.error("couldn't find 'root' element")
+      return
     }
-  }
-
-  private fun render() {
-    val container = document.getElementById("app")!!
-    val root = root {
-      ul {
-        id = "list"
-        li {
-          id = "one"
-          + "one"
-        }
-        li {
-          id = "two"
-          + "two"
+    root.card {
+      title = "Welcome"
+      supportingText = """
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Mauris sagittis pellentesque lacus eleifend lacinia...
+      """
+      actions {
+        button(isFab = true) {
+          id = "btn-id"
+          icon("content_paste")
         }
       }
     }
-    container.appendChild(root.render())
-    val ul = document.getElementById("list")!!
-    val one = document.getElementById("one")!!
-
-  }
-
-  private fun render(container: Element) {
-    val root = createVDom(container)
-    Reakt.render(root, container)
-  }
-
-  private fun createVDom(container: Element): VElement<HTMLDivElement> {
-    val root = root {
-      button {
-        elementClass = "btn btn-primary"
-        onClick = {
-          items += ++last
-          log.debug("size: ${items.size}")
-          render(container)
-        }
-        +"Push"
-      }
-      button {
-        elementClass = "btn btn-success"
-        onClick = {
-          items.removeAt(0)
-          log.debug("size: ${items.size}")
-          render(container)
-        }
-        disabled = items.size == 0
-        +"Pop"
-      }
-      ul {
-        elementClass = "list-group"
-        items.forEach { item ->
-          li {
-            key = "$item"
-            elementClass = "list-group-item"
-            img {
-              src = "https://randomuser.me/api/portraits/men/$item.jpg"
-            }
-            + " Item $item"
-          }
-        }
-      }
+    root.text {
+      id = "text-1"
+      labelText = "My Label"
+      isFloating = true
     }
-    return root
   }
 }
