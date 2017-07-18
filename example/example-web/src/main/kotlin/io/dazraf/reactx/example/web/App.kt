@@ -1,5 +1,6 @@
 package io.dazraf.reactx.example.web
 
+import io.dazraf.reactx.example.form
 import io.dazraf.reactx.example.mdl.components.*
 import io.dazraf.reactx.example.simple.text
 import io.dazraf.reactx.log
@@ -30,16 +31,31 @@ class App {
       Mauris sagittis pellentesque lacus eleifend lacinia...
       """
       actions {
-        button(isFab = true) {
+        button {
           id = "btn-id"
+          isFab = true
           icon("content_paste")
         }
       }
     }
-    root.text {
-      id = "text-1"
-      labelText = "My Label"
-      isFloating = true
+    root.form {
+      action = "#"
+      text {
+        id = "text-1"
+        labelText = "My Label"
+        isFloating = true
+      }
+    }
+    root.form {
+      action = "#"
+      text {
+        id = "text-2"
+        pattern = "-?[0-9]*(\\.[0-9]+)?"
+        errorString = "value must be a number"
+        expandWith {
+          icon("search")
+        }
+      }
     }
   }
 }

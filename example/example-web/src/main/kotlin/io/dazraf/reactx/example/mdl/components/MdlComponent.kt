@@ -4,7 +4,10 @@ import io.dazraf.reactx.example.MdlColor
 import io.dazraf.reactx.example.classType
 import org.w3c.dom.Element
 import kotlin.browser.document
+import kotlin.dom.addClass
 import kotlin.dom.appendText
+import kotlin.dom.hasClass
+import kotlin.dom.removeClass
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -25,6 +28,19 @@ abstract class MdlComponent(tag: String, classType: String, cssClassId: String =
     set(value) {
       value?.let { mainElement.setAttribute("class", mainElement.getAttribute("class")?.plus(" $it")!!) }
     }
+
+  fun classFlag(className: String) = object: ReadWriteProperty<Any, Boolean> {
+    override operator fun getValue(thisRef: Any, property: KProperty<*>) : Boolean {
+      return mainElement.hasClass(className)
+    }
+    override operator fun setValue(thisRef: Any, property: KProperty<*>, value: Boolean) {
+      if (value && !mainElement.hasClass(className)) {
+        mainElement.addClass(className)
+      } else if (!value && mainElement.hasClass(className)) {
+        mainElement.removeClass(className)
+      }
+    }
+  }
 
   fun <T> htmlPram(parent: Element = mainElement): ReadWriteProperty<Any, T> = object : ReadWriteProperty<Any, T> {
     private var prop: T? = null

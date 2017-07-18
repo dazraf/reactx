@@ -2,6 +2,7 @@ package io.dazraf.reactx.example
 
 import io.dazraf.reactx.example.mdl.components.MdlComponent
 import org.w3c.dom.Element
+import org.w3c.dom.HTMLFormElement
 import kotlin.browser.document
 
 //todo clean this code up
@@ -22,6 +23,13 @@ inline fun Element.img(classId: String = "", init: Img.() -> Unit): Element {
   img.init()
   this.append(img.mainElement)
   return img.mainElement
+}
+
+inline fun Element.form(classId: String = "", init: HTMLFormElement.() -> Unit): HTMLFormElement {
+  val form = kotlin.browser.document.createElement("form").apply { this classType classId } as HTMLFormElement
+  form.init()
+  this.append(form)
+  return form
 }
 
 inline fun img(classId: String = "", init: Img.() -> Unit): Element {
@@ -85,3 +93,4 @@ operator fun Element.plus(element: Element) {
 infix fun Element.classType(className: String) {
   this.setAttribute("class", className)
 }
+

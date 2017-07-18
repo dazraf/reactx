@@ -1,72 +1,44 @@
 package io.dazraf.reactx.example.mdl.components
 
-import io.dazraf.reactx.example.plus
+
 import org.w3c.dom.Element
 import org.w3c.dom.events.Event
 
 inline fun MdlComponent.button(cssClassId: String = "",
-                               isFab: Boolean = false,
-                               isJsButton: Boolean = true,
-                               isRaised: Boolean = true,
-                               hasRipple: Boolean = true,
-                               isColored: Boolean = true,
-                               isAccented: Boolean = false,
                                init: Button.() -> Unit): Element {
-  return this.mainElement.button(
-    cssClassId = cssClassId,
-    isFab = isFab,
-    isJsButton = isJsButton,
-    isRaised = isRaised,
-    hasRipple = hasRipple,
-    isColored = isColored,
-    isAccented = isAccented,
-    init = init)
+  return this.mainElement.button(cssClassId = cssClassId, init = init)
 }
 
-inline fun Element.button(cssClassId: String = "",
-                          isFab: Boolean = false,
-                          isJsButton: Boolean = true,
-                          isRaised: Boolean = true,
-                          hasRipple: Boolean = true,
-                          isColored: Boolean = true,
-                          isAccented: Boolean = false,
-                          init: Button.() -> Unit): Element {
-  val button = Button(
-    cssClassId = cssClassId,
-    isFab = isFab,
-    isJsButton = isJsButton,
-    isRaised = isRaised,
-    isColored = isColored,
-    isAccented = isAccented,
-    hasRipple = hasRipple)
+inline fun Element.button(cssClassId: String = "", init: Button.() -> Unit): Element {
+  val button = Button(cssClassId = cssClassId)
   button.init()
-  this + button.mainElement
+  this.append(button.mainElement)
   return button.mainElement
 }
 
-class Button(val cssClassId: String = "",
-             val isFab: Boolean,
-             val isJsButton: Boolean,
-             val isRaised: Boolean,
-             val hasRipple: Boolean,
-             val isColored: Boolean,
-             val isAccented: Boolean) :
-  MdlComponent("button",
-    " mdl-button" +
-      (if (isFab)     " mdl-button--fab" else "") +
-      (if (isJsButton) " mdl-js-button" else "") +
-      (if (isRaised)  " mdl-button--raised" else "") +
-      (if (hasRipple) " mdl-js-ripple-effect" else "") +
-      (if (isColored) " mdl-button--colored" else "") +
-      (if (isAccented) " mdl-button--accent" else "")
-    , cssClassId) {
+class Button(cssClassId: String = "") :
+  MdlComponent("button", " mdl-button", cssClassId) {
 
-  var onclick : ((Event) -> dynamic)?
-  get() = (mainElement as org.w3c.dom.HTMLButtonElement).onclick
-  set(value) { (mainElement as org.w3c.dom.HTMLButtonElement).onclick = value }
-
-
+  var isFab by classFlag("mdl-button--fab")
+  var isJsButton by classFlag("mdl-js-button")
+  var isRaised by classFlag("mdl-button--raised")
+  var hasRipple by classFlag("mdl-js-ripple-effect")
+  var isColored by classFlag(" mdl-button--colored")
+  var isAccented by classFlag("mdl-button--accent")
+  var onclick: ((Event) -> dynamic)?
+    get() = (mainElement as org.w3c.dom.HTMLButtonElement).onclick
+    set(value) {
+      (mainElement as org.w3c.dom.HTMLButtonElement).onclick = value
+    }
   var ondblclick: ((Event) -> dynamic)?
     get() = (mainElement as org.w3c.dom.HTMLButtonElement).ondblclick
-    set(value) { (mainElement as org.w3c.dom.HTMLButtonElement).ondblclick = value }
+    set(value) {
+      (mainElement as org.w3c.dom.HTMLButtonElement).ondblclick = value
+    }
+  init {
+    isJsButton = true
+    isRaised = true
+    hasRipple = true
+    isColored = true
+  }
 }
