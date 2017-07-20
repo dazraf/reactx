@@ -2,7 +2,6 @@ package io.dazraf.reactx.example.web
 
 import io.dazraf.reactx.example.form
 import io.dazraf.reactx.example.mdl.components.*
-import io.dazraf.reactx.example.simple.text
 import io.dazraf.reactx.log
 import kotlin.browser.document
 
@@ -49,12 +48,33 @@ class App {
     root.form {
       action = "#"
       text {
-        id = "text-2"
+        id  = "text-2"
         pattern = "-?[0-9]*(\\.[0-9]+)?"
         errorString = "value must be a number"
         expandWith {
           icon("search")
         }
+      }
+      checkbox {
+        id = "checkbox-1"
+        textLabel = "checkbox 1"
+        onchange { event, toggle ->
+          log.info(event, toggle.checked)
+        }
+      }
+      checkbox {
+        id = "checkbox-2"
+        checked = true
+      }
+      switch("switch") {
+        id = "switch-1"
+        onchange { event, switch ->
+          log.info(event, switch.checked)
+        }
+      }
+      switch("switch") {
+        id = "switch-2"
+        checked = true
       }
     }
   }

@@ -9,7 +9,7 @@ html, body {
 .mdl-card > .mdl-card__title {
   color: #fff;
   height: 176px;
-  background: url('http://ichef.bbci.co.uk/wwfeatures/wm/live/1280_640/images/live/p0/25/zm/p025zmzy.jpg') center / cover;
+  background: url('images/rocket.jpg') center / cover;
 }
 
 .avatar {
@@ -45,4 +45,8 @@ html, body {
   color: rgba(0, 0, 0, 0.87);
   margin-right: 32px;
   width: 24px
+}
+
+.mdl-switch.switch {
+  display: inline-flex;
 }
