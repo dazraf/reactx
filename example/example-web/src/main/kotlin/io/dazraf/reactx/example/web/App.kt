@@ -24,57 +24,42 @@ class App {
       return
     }
     root.card {
-      title = "Welcome"
-      supportingText = """
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Mauris sagittis pellentesque lacus eleifend lacinia...
-      """
-      actions {
-        button {
-          id = "btn-id"
-          isFab = true
-          icon("content_paste")
+      title = "New User"
+      mainElement.form {
+        action = "#"
+        text {
+          id = "name"
+          labelText = "Name"
+          isFloating = true
         }
-      }
-    }
-    root.form {
-      action = "#"
-      text {
-        id = "text-1"
-        labelText = "My Label"
-        isFloating = true
-      }
-    }
-    root.form {
-      action = "#"
-      text {
-        id  = "text-2"
-        pattern = "-?[0-9]*(\\.[0-9]+)?"
-        errorString = "value must be a number"
-        expandWith {
-          icon("search")
+        text {
+          id = "username"
+          labelText = "Username"
+          isFloating = true
         }
-      }
-      checkbox {
-        id = "checkbox-1"
-        textLabel = "checkbox 1"
-        onchange { event, toggle ->
-          log.info(event, toggle.checked)
+        text {
+          id = "password"
+          labelText = "Password"
+          isFloating = true
+          isPassword = true
         }
-      }
-      checkbox {
-        id = "checkbox-2"
-        checked = true
-      }
-      switch("switch") {
-        id = "switch-1"
-        onchange { event, switch ->
-          log.info(event, switch.checked)
+        checkbox {
+          id = "is-userid"
+          textLabel = "Super user"
         }
-      }
-      switch("switch") {
-        id = "switch-2"
-        checked = true
+        checkbox {
+          id = "can-read"
+          textLabel = "Can Read"
+        }
+        checkbox {
+          id = "can-write"
+          textLabel = "Can Write"
+        }
+        switch {
+          id = "activated"
+          textLabel = "Activated"
+          checked = true
+        }
       }
     }
   }

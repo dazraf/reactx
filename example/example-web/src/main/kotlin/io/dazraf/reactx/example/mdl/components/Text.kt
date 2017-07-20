@@ -57,6 +57,9 @@ class Text(cssClassId: String = "") : MdlComponent("div", "mdl-textfield mdl-js-
   var isFloating by classFlag("mdl-textfield--floating-label")
   var pattern: String by htmlPram(input)
   var errorString: String by htmlTextPram(parent = error)
+  var isPassword : Boolean
+  get() = input.type == "password"
+  set(value) { input.type = if (value) "password" else "text"}
 
   fun expandWith(initContents: HTMLLabelElement.() -> Unit) : HTMLLabelElement {
     isFloating = false
